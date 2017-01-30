@@ -8,7 +8,7 @@ import json
 import sys
 
 
-expats = [ 'sean_martin']
+expats = [ ]
 
 
 def get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, cluster_id=False):
