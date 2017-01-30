@@ -58,7 +58,7 @@ def get_all_vpcs_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_c
         if 'vpcs' in item['aws']:
             keylist = item['aws']['vpcs'].keys()
             for key in keylist:
-                print(item['title'], item['id'], item['awsAccountId'],
-                      item['aws']['vpcs'][key]['vpcId'])
+                print(item['title'], item['id'], item['awsAccountId'], item['aws']['vpcs'][key]['vpcId'])
         else:
             print(item['title'], item['id'], item['awsAccountId'])
+

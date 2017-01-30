@@ -7,8 +7,7 @@ import sys
 
 
 def main(akey, skey, token, instance_id):
-    session = boto3.Session(aws_access_key_id=akey,
-                            aws_secret_access_key=skey, aws_session_token=token)
+    session = boto3.Session(aws_access_key_id=akey, aws_secret_access_key=skey, aws_session_token=token)
     client = session.client('ec2', region_name='us-east-1')
 
     try:
@@ -21,7 +20,7 @@ def main(akey, skey, token, instance_id):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Finds which account an ec2 instance exists in')
-    parser.add_argument('instance', help='the instance id you wish to find', required=True)
+    parser.add_argument('instance', help='the instance id you wish to find')
 
     args = parser.parse_args()
 
@@ -35,14 +34,13 @@ if __name__ == '__main__':
 
     # Get the access and secret key pairs
     (turbot_api_access_key, turbot_api_secret_key) = turbotutils.get_turbot_access_keys()
-    accounts = turbotutils.get_turbot_account_ids(
-        turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host)
+    accounts = turbotutils.get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host)
 
     for account in accounts:
         turbot_account = account
         print("Checking %s" % turbot_account)
 
-        (akey, skey, token) = turbotutils.get_aws_access_key(turbot_api_access_key, turbot_api_secret_key,
-                                                             turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id)
+        (akey, skey, token) = turbotutils.get_aws_access_key(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id)
 
-        main(akey, skey, token, instance_id=args.instance)
+        main(akey,skey,token, instance_id=args.instance)
+

@@ -6,12 +6,11 @@ import boto3
 
 def main(akey, skey, token):
     session = boto3.Session(aws_access_key_id=akey, aws_secret_access_key=skey, aws_session_token=token)
-    client = session.client('es', region_name='us-east-1')
+    client = session.client('iam', region_name='us-east-1')
 
-    response = client.list_domain_names()
+    response = client.list_users()
 
-    for key in response['DomainNames']:
-        print(key['DomainName'])
+    print(response)
 
 
 if __name__ == '__main__':

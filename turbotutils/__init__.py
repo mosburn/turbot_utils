@@ -52,7 +52,7 @@ def get_turbot_access_keys():
     turbot_api_access_key = config.get('turbot', 'access_key')
     turbot_api_secret_key = config.get('turbot', 'secret_key')
 
-    return turbot_api_access_key, turbot_api_secret_key
+    return turbot_api_access_key,turbot_api_secret_key
 
 
 def get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host):
@@ -121,7 +121,6 @@ def query_yes_no(question, default="yes"):
 
     The "answer" return value is one of "yes" or "no".
 
-    Stolen from a Stack Overflow post
     :rtype bool
 
     :returns true or false
