@@ -6,8 +6,7 @@ import configparser
 import os
 
 
-""" simple script to use turbot to rotate your access keys"""
-if __name__ == '__main__':
+def rotate_keys():
     config = configparser.ConfigParser()
     conf_file = os.path.expanduser('~/.aws/credentials')
     config.read(conf_file)
@@ -47,3 +46,6 @@ if __name__ == '__main__':
     with open(conf_file, 'w') as configfile:
 
         config.write(configfile)
+""" simple script to use turbot to rotate your access keys"""
+if __name__ == '__main__':
+    rotate_keys()
