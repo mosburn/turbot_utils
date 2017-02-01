@@ -55,36 +55,6 @@ def get_turbot_access_keys():
     return turbot_api_access_key,turbot_api_secret_key
 
 
-def get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host):
-    """ Gets the current turbot account names
-
-    :return: Returns a list of turbot account names as accounts
-    """
-    # Set to the required API request type and location
-    accounts = []
-    api_method = "GET"
-    api_url = "/api/v1/accounts"
-
-    response = requests.request(
-        api_method,
-        urllib.parse.urljoin(turbot_host, api_url),
-        auth=(turbot_api_access_key, turbot_api_secret_key),
-        verify=turbot_host_certificate_verification,
-        headers={
-            'content-type': "application/json",
-            'cache-control': "no-cache"
-        }
-    )
-
-    # Convert the response JSON into a Python object
-    responseObj = json.loads(response.text)
-
-    for obj in responseObj['items']:
-        accounts.append(obj['id'])
-
-    return accounts
-
-
 def query_yes_no(question, default="yes"):
     """Ask a yes/no question via raw_input() and return their answer.
 
