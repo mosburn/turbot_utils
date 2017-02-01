@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import turbotutils
+import turbotutils.account
 import boto3
 
 
@@ -30,7 +31,7 @@ if __name__ == '__main__':
         turbot_account = account
         print("Checking %s" % turbot_account)
 
-        (akey, skey, token) = turbotutils.get_aws_access_key(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id)
+        (akey, skey, token) = turbotutils.account.get_aws_access_key(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id)
 
         main(akey,skey,token)
 
