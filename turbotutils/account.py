@@ -48,7 +48,7 @@ def list_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_h
     )
 
     responseObj = json.loads(response.text)
-    print(responseObj)
+
     if'accessKeyId' in responseObj['items'][0]:
 
         exists = True
