@@ -117,7 +117,7 @@ def get_aws_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_hos
     responseObj = json.loads(response.text)
 
     for obj in responseObj['items']:
-        accounts.append(obj['awsAccountId'])
+        accounts.append(obj['awsAccountId'].zfill(12))
 
     return accounts
 
