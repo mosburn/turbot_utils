@@ -12,7 +12,7 @@ except ImportError:
 
 setup(
     name="turbotutils",
-    version='0.0.1',
+    version='0.0.2',
     description="TurbotHQ API Library",
     long_description='Python Interface into TurbotHQ\'s Interface to allow for python interaction.',
     author='Michael Osburn <michael@mosburn.com>',
@@ -20,10 +20,11 @@ setup(
     url="https://github.com/mosburn/turbot_utils",
     packages=["turbotutils"],
     install_requires=["requests", "configparser"],
+    keywords=[ "Turbot"],
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Information Technology",
-        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Natural Language :: English",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
