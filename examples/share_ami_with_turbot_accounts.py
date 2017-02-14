@@ -25,7 +25,9 @@ if __name__ == '__main__':
 
     for account in accounts:
         try:
-            response = client.modify_image_attribute(ImageId='ami-19e8cc0e', LaunchPermission={'Add': [
+            # Note: ami-809a8097 is a marketplace AMI, so it will not share correctly, however if you replace it with your
+            # custom ami it will start sharing it out.
+            response = client.modify_image_attribute(ImageId='ami-809a8097', LaunchPermission={'Add': [
                 {
                     'UserId': str(account),
                     'Group': 'all'
