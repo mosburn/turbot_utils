@@ -12,7 +12,6 @@ import json
 import sys
 import urllib.parse
 
-
 def get_turbot_host():
     """Gets the turbot master information from the config file
 
