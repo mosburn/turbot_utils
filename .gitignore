@@ -133,3 +133,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# keep from commiting example outputs
+reports/

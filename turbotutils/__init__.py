@@ -12,6 +12,11 @@ import json
 import sys
 import urllib.parse
 
+__version__ = '0.0.3'
+__url__ = 'https://github.com/mosburn/turbot_utils'
+__author__ = 'Michael Osburn -- mosburn'
+
+
 def get_turbot_host():
     """Gets the turbot master information from the config file
 
