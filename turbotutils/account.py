@@ -121,5 +121,9 @@ def get_account_tags(turbot_api_access_key, turbot_api_secret_key, turbot_host_c
     )
 
     responseObj = json.loads(response.text)
-    print(responseObj)
 
+    # If the account does not have tags, return false for an easy way to test later
+    if 'tags' in responseObj:
+        return responseObj['tags']
+    else:
+        return False
