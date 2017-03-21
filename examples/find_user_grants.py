@@ -8,9 +8,6 @@ import json
 import sys
 
 
-expats = [ ]
-
-
 def get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, cluster_id=False):
     account_list = []
     api_method = "GET"
@@ -31,14 +28,13 @@ def get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot
     responseObj = json.loads(response.text)
 
     for obj in responseObj['items']:
-        if cluster_id:
-            user_format = cluster_id + '::user:'
-            dummy, common_name = obj['identityUrn'].split(user_format)
-
+        if 'user' in obj:
+            common_name = obj['user']['displayName']
         else:
+            # Not all accounts have user displayname, most commonly nathan@turbot's
             dummy, common_name = obj['identityUrn'].split('::user:')
 
-        if common_name in expats:
+        if '_DELETED' in common_name:
             print('Former employee %s found in account %s' % (common_name, namespace))
         account_list.append(common_name)
     return account_list
