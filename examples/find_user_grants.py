@@ -71,7 +71,7 @@ if __name__ == '__main__':
             if account_id not in turbot_account_list:
                 turbot_account_list.append(account_id)
 
-    turbot_account_list =  sorted(set(turbot_account_list))
+    turbot_account_list = sorted(set(turbot_account_list))
 
     for id in turbot_account_list:
         print(id)

@@ -26,6 +26,5 @@ if __name__ == '__main__':
         zones = client.list_hosted_zones()
 
         for zone in zones['HostedZones']:
-            #print(turbot_account)
-            if zone['Config']['PrivateZone'] == False:
-                print(zone['Name'])
+            if not zone['Config']['PrivateZone']:
+                print(zone['Name'] + ', ' + turbot_account)
