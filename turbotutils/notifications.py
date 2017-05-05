@@ -77,7 +77,7 @@ if __name__ == '__main__':
 
     # Get the access and secret key pairs
     (turbot_api_access_key, turbot_api_secret_key) = turbotutils.get_turbot_access_keys()
-    turbot_account = 'urn:turbot:mhe:aaz'
+    turbot_account = 'urn:turbot:mosburn:aaz'
 
     items = get_guardrails_for_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account)
 
