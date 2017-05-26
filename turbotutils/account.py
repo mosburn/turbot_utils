@@ -127,3 +127,25 @@ def get_account_tags(turbot_api_access_key, turbot_api_secret_key, turbot_host_c
         return responseObj['tags']
     else:
         return False
+
+
+def create_user_ssh_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_user_id):
+    """ Sets user access AKIA key pairs for a specified account
+
+    NOTE: This requires a Cluster role Turbot/Owner or higher in order to work.
+    """
+    api_method = "POST"
+    api_url = "/api/v1/users/%s/sshKeys" % (turbot_user_id)
+    response = requests.request(
+        api_method,
+        urllib.parse.urljoin(turbot_host, api_url),
+        auth=(turbot_api_access_key, turbot_api_secret_key),
+        verify=turbot_host_certificate_verification,
+        headers={
+            'content-type': "application/json",
+            'cache-control': "no-cache"
+        }
+    )
+
+    responseObj = json.loads(response.text)
+    return(responseObj['publicKey'])

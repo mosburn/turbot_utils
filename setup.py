@@ -1,7 +1,7 @@
 from setuptools import setup
 import os
 
-long_description = ''
+long_description = 'A basic SDK for managing turbothq clusters'
 try:
     from pypandoc import convert
     if os.path.exists('README.md'):
@@ -12,7 +12,7 @@ except ImportError:
 
 setup(
     name="turbotutils",
-    version='0.0.5',
+    version='0.0.6',
     description="TurbotHQ API Library",
     long_description='Python Interface into TurbotHQ\'s Interface to allow for python interaction.',
     author='Michael Osburn <michael@mosburn.com>',
