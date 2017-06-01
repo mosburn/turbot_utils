@@ -12,7 +12,9 @@ except ImportError:
 
 setup(
     name="turbotutils",
+
     version='0.0.6',
+
     description="TurbotHQ API Library",
     long_description='Python Interface into TurbotHQ\'s Interface to allow for python interaction.',
     author='Michael Osburn <michael@mosburn.com>',
