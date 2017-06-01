@@ -1,0 +1,9 @@
+machine:
+  python:
+    version: 3.6.1
+  timezone:
+    America/Los_Angeles # Set the timezone
+
+test:
+  commands:
+    - sh run_tests.sh
