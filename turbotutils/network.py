@@ -54,12 +54,4 @@ def get_all_vpcs_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_c
 
     responseObj = json.loads(response.text)
 
-    for item in responseObj['items']:
-        account_id = str(item['awsAccountId']).rjust(12, '0')
-        if 'vpcs' in item['aws']:
-            keylist = item['aws']['vpcs'].keys()
-            for key in keylist:
-                print(item['title'], item['id'], account_id, item['aws']['vpcs'][key]['vpcId'])
-        else:
-            print(item['title'], item['id'], account_id)
-
+    return responseObj['items']

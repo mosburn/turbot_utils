@@ -48,3 +48,4 @@ def get_guardrail(turbot_api_access_key, turbot_api_secret_key, turbot_host_cert
     responseObj = json.loads(response.text)
     print(responseObj['value'])
     return responseObj['value']
+

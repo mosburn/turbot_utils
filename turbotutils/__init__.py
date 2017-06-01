@@ -12,7 +12,13 @@ import json
 import sys
 import urllib.parse
 
-__version__ = '0.0.3'
+from .account import *
+from .billing import *
+from .cluster import *
+from .network import *
+from .notifications import *
+
+__version__ = '0.0.6'
 __url__ = 'https://github.com/mosburn/turbot_utils'
 __author__ = 'Michael Osburn -- mosburn'
 
