@@ -60,13 +60,13 @@ def get_cluster_options(turbot_api_access_key, turbot_api_secret_key, turbot_hos
 def get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host):
     """ Gets the current turbot account names
 
-    :return: Returns a list of turbot account names as accounts
+    :return: Returns a dict of turbot account names as turbot_id:AWSaccount
     """
     import requests
     import json
     import urllib.parse
     # Set to the required API request type and location
-    accounts = []
+    accounts = {}
     api_method = "GET"
     api_url = "/api/v1/accounts"
 
@@ -85,7 +85,7 @@ def get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_
     responseObj = json.loads(response.text)
 
     for obj in responseObj['items']:
-        accounts.append(obj['id'])
+        accounts[obj['id']] = obj['awsAccountId']
 
     return accounts
 
