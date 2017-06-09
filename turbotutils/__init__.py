@@ -43,7 +43,7 @@ def get_turbot_user():
     """
 
     config = configparser.ConfigParser()
-    config.read(os.path.expanduser('~/.aws/config'))
+    config.read(os.path.expanduser('~/.aws/turbothq'))
     turbot_user_id = config.get('default', 'turbot_user_id')
 
     return turbot_user_id
