@@ -1,0 +1,6 @@
+[turbot]
+access_key = 
+secret_key = 
+host = turbot.fq.dn
+verify = True
+turbot_user_id = you@example.com

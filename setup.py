@@ -13,7 +13,7 @@ except ImportError:
 setup(
     name="turbotutils",
 
-    version='0.0.7',
+    version='0.0.8',
 
     description="TurbotHQ API Library",
     long_description='Python Interface into TurbotHQ\'s Interface to allow for python interaction.',
