@@ -122,6 +122,7 @@ def get_aws_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_hos
 
     return accounts
 
+
 def get_account_titles(turbot_api_access_key, turbot_api_secret_key,turbot_host_certificate_verification, turbot_host):
     import requests
     import json
@@ -148,3 +149,23 @@ def get_account_titles(turbot_api_access_key, turbot_api_secret_key,turbot_host_
         accounts[obj['id']] = obj['title']
 
     return accounts
+
+
+def validate_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, account):
+    ''' Simply validates that we have a valid account id being passed in'''
+
+    from turbotutils.cluster import get_turbot_account_ids
+
+    ids = get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key,
+                                                     turbot_host_certificate_verification, turbot_host)
+    idList = []
+    for key in ids.items():
+        idList.append(key[0])
+    while True:
+        if account not in idList:
+            print('Sorry, account %s is not in this turbot cluster' % account)
+            account=input('Please enter the account ID you are adding the user to: ')
+            continue
+        else:
+            # We do have a valid account
+            return(account)
