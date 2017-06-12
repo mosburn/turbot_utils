@@ -150,7 +150,6 @@ def get_account_titles(turbot_api_access_key, turbot_api_secret_key,turbot_host_
 
     return accounts
 
-
 def validate_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, account):
     ''' Simply validates that we have a valid account id being passed in'''
 
