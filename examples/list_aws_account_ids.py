@@ -17,8 +17,8 @@ def main():
     accounts = turbotutils.cluster.get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key,
                                                   turbot_host_certificate_verification, turbot_host)
 
-      for tid,id in accounts.items():
-        print(tid + ',' +str(id).zfill(12))
+    for tid,id in accounts.items():
+       print(tid + ',' +str(id).zfill(12))
 
 if __name__ == '__main__':
-    main()
+   main()
