@@ -84,8 +84,10 @@ def get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_
     # Convert the response JSON into a Python object
     responseObj = json.loads(response.text)
 
-    for obj in responseObj['items']:
-        accounts[obj['id']] = obj['awsAccountId']
+    if responseObj['items']:
+        # A user may not have permission to list all accounts
+        for obj in responseObj['items']:
+            accounts[obj['id']] = obj['awsAccountId']
 
     return accounts
 

@@ -46,7 +46,8 @@ def rotate_keys():
             config[account]['aws_secret_access_key'] = skey
         except Exception as e:
             # TODO: Figure out what to do with 'e' later
-            pass
+            error = e
+
 
 
     with open(conf_file, 'w') as configfile:
