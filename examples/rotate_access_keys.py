@@ -30,19 +30,25 @@ def rotate_keys():
         try:
 
             (key_exists,akey) = turbotutils.account.list_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id)
+            if key_exists:
+                print('Access Key already exists, deleting %s' % akey)
+                turbotutils.account.delete_user_access_keys(turbot_api_access_key, turbot_api_secret_key,
+                                                            turbot_host_certificate_verification, turbot_host,
+                                                            turbot_account, turbot_user_id, akey)
+                time.sleep(1)
 
-        except:
-            pass
-        if key_exists:
-            print('Access Key already exists, deleting %s' % akey)
-            turbotutils.account.delete_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id, akey)
-            time.sleep(1)
+            (akey, skey) = turbotutils.account.create_user_access_keys(turbot_api_access_key, turbot_api_secret_key,
+                                                                       turbot_host_certificate_verification,
+                                                                       turbot_host, turbot_account, turbot_user_id)
+            if not config.has_section(account):
+                config.add_section(account)
+            config[account]['aws_access_key_id'] = akey
+            config[account]['aws_secret_access_key'] = skey
+        except Exception as e:
+            # TODO: Figure out what to do with 'e' later
+            error = e
 
-        (akey,skey) = turbotutils.account.create_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id)
-        if not config.has_section(account):
-            config.add_section(account)
-        config[account]['aws_access_key_id'] = akey
-        config[account]['aws_secret_access_key'] = skey
+
 
     with open(conf_file, 'w') as configfile:
 
