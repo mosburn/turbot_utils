@@ -14,7 +14,12 @@ if __name__ == '__main__':
     parser.add_argument('source', help='The source account')
     parser.add_argument('dest', help='The Destination account')
     args = parser.parse_args()
-    filename = 'reports/guardrails/' +  args.source + '_to_' + args.dest + '.csv'
+    if args.source == "cluster":
+        filename = 'reports/guardrails/cluster_to_' + args.dest + '.csv'
+    else:
+        filename = 'reports/guardrails/' +  args.source + '_to_' + args.dest + '.csv'
+        
+    
     with open(filename, 'w') as csvfile:
         writer = csv.writer(csvfile)
         # Set to False if you do not have a valid certificate for your Turbot Host
@@ -26,7 +31,10 @@ if __name__ == '__main__':
         # Get the access and secret key pairs
         (turbot_api_access_key, turbot_api_secret_key) = turbotutils.get_turbot_access_keys()
         urn_format = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification)
-        source_account_urn = urn_format + ':' + args.source
+        if args.source == 'cluster':
+            source_account_urn = urn_format + ':'
+        else:
+            source_account_urn = urn_format + ':' + args.source
         dest_source_account_urn = urn_format + ':' + args.dest
         difference_count = 0
 
@@ -39,17 +47,19 @@ if __name__ == '__main__':
                                                                    dest_source_account_urn)
         writer.writerow(['Guardrail Name', 'Source value', 'Destination value'])
         print("Finding the guardrail differences between %s and %s" % (args.source, args.dest))
-        source = ''
         for guardrail in sourceguardrails:
-            prvsrc = source
             source = sourceguardrails[guardrail]['value']
             dest = destguardrails[guardrail]['value']
             if source != dest:
-                if not 'value' in dest:
+                if not ((dest.get('value') is not None ) and ( 'value' in dest )):
                     print ( 'dest has no key value')
-                if not 'value' in source:
+                    print('dest>>>>')
+                    print(json.dumps(dest, indent=3))
+                    print('src>>>>')
+                    print (json.dumps(source, indent=3))
+                    continue
+                if not ((source.get('value') is not None ) and ( 'value' in source)):
                     print ('source has no key value')
-                if not 'value' in dest or not 'value' in source:
                     print('dest>>>>')
                     print(json.dumps(dest, indent=3))
                     print('src>>>>')
