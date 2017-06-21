@@ -5,6 +5,7 @@ import turbotutils.cluster
 import turbotutils.guardrails
 import argparse
 import csv
+import json
 
 if __name__ == '__main__':
     """ Preforms a guardrail diff of two accounts to allow for easier migration between two accounts and validation"""
@@ -38,10 +39,22 @@ if __name__ == '__main__':
                                                                    dest_source_account_urn)
         writer.writerow(['Guardrail Name', 'Source value', 'Destination value'])
         print("Finding the guardrail differences between %s and %s" % (args.source, args.dest))
+        source = ''
         for guardrail in sourceguardrails:
+            prvsrc = source
             source = sourceguardrails[guardrail]['value']
             dest = destguardrails[guardrail]['value']
             if source != dest:
+                if not 'value' in dest:
+                    print ( 'dest has no key value')
+                if not 'value' in source:
+                    print ('source has no key value')
+                if not 'value' in dest or not 'value' in source:
+                    print('dest>>>>')
+                    print(json.dumps(dest, indent=3))
+                    print('src>>>>')
+                    print (json.dumps(source, indent=3))
+                    continue 
                 if source['value'] != dest['value']:
                     print("Guardrail %s on source account is set to %s and %s on destination account" % (guardrail, source['value'], dest['value']))
                     difference_count += 1
