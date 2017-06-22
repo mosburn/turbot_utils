@@ -54,7 +54,7 @@ if __name__ == '__main__':
                 if not ((dest.get('value') is not None ) and ( 'value' in dest )):
                     print("Guardrail %s on source account is set to %s and %s on destination account" % (guardrail, source['value'], 'No Value set in'+args.dest))
                     difference_count += 1
-                    writer.writerow([guardrail, source['value'], 'No Value set in account '+args.dest])
+                    writer.writerow([guardrail, source['value'], 'No Value Set in account '+args.dest])
                     continue
                 if not ((source.get('value') is not None ) and ( 'value' in source)):
                     print("Guardrail %s is not set on source account (%s) and is set to %s on destination account" % (guardrail, args.source, dest['value']))
