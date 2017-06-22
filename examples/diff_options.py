@@ -52,18 +52,14 @@ if __name__ == '__main__':
             dest = destguardrails[guardrail]['value']
             if source != dest:
                 if not ((dest.get('value') is not None ) and ( 'value' in dest )):
-                    print ( 'dest has no key value')
-                    print('dest>>>>')
-                    print(json.dumps(dest, indent=3))
-                    print('src>>>>')
-                    print (json.dumps(source, indent=3))
+                    print("Guardrail %s on source account is set to %s and %s on destination account" % (guardrail, source['value'], 'No Value set in'+args.dest))
+                    difference_count += 1
+                    writer.writerow([guardrail, source['value'], 'No Value set in account '+args.dest])
                     continue
                 if not ((source.get('value') is not None ) and ( 'value' in source)):
-                    print ('source has no key value')
-                    print('dest>>>>')
-                    print(json.dumps(dest, indent=3))
-                    print('src>>>>')
-                    print (json.dumps(source, indent=3))
+                    print("Guardrail %s is not set on source account (%s) and is set to %s on destination account" % (guardrail, args.source, dest['value']))
+                    difference_count += 1
+                    writer.writerow([guardrail, 'No Value set in account '+args.source, dest['value']])
                     continue 
                 if source['value'] != dest['value']:
                     print("Guardrail %s on source account is set to %s and %s on destination account" % (guardrail, source['value'], dest['value']))
