@@ -11,7 +11,7 @@ if __name__ == '__main__':
     """ Preforms a guardrail diff of two accounts to allow for easier migration between two accounts and validation"""
 
     parser = argparse.ArgumentParser(description='diff two turbot account guardrail settings')
-    parser.add_argument('source', help='The source account')
+    parser.add_argument('source', help='The source account. Use cluster if you wish to use the cluster as a reference')
     parser.add_argument('dest', help='The Destination account')
     args = parser.parse_args()
     if args.source == "cluster":
