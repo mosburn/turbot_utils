@@ -32,7 +32,7 @@ if __name__ == '__main__':
         (turbot_api_access_key, turbot_api_secret_key) = turbotutils.get_turbot_access_keys()
         urn_format = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification)
         if args.source == 'cluster':
-            source_account_urn = urn_format + ':'
+            source_account_urn = urn_format
         else:
             source_account_urn = urn_format + ':' + args.source
         dest_source_account_urn = urn_format + ':' + args.dest
