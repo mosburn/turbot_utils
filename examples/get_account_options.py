@@ -14,7 +14,7 @@ if __name__ == '__main__':
     parser.add_argument('source', help='The source account. Use cluster if you wish to use the cluster as a reference')
     args = parser.parse_args()
     
-    filename = 'reports/guardrails/account_dumo_of_' + args.source + '.csv'    
+    filename = 'reports/guardrails/account_dump_of_' + args.source + '.csv'    
     
     with open(filename, 'w') as csvfile:
         writer = csv.writer(csvfile)
@@ -28,7 +28,8 @@ if __name__ == '__main__':
         (turbot_api_access_key, turbot_api_secret_key) = turbotutils.get_turbot_access_keys()
         urn_format = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification)
         if args.source == 'cluster':
-            source_account_urn = urn_format + ':'
+            source_account_urn = urn_format
+            print(source_account_urn)
         else:
             source_account_urn = urn_format + ':' + args.source
         
@@ -39,7 +40,7 @@ if __name__ == '__main__':
                                                                      source_account_urn)
 
         
-        writer.writerow(['Guardrail Name', 'Source value'])
+        writer.writerow(['Account Name', 'Guardrail Name', 'value' , 'Requirement'])
         print("Dumping the guardrails for %s" % (args.source))
         for guardrail in sourceguardrails:
             source = sourceguardrails[guardrail]['value']
