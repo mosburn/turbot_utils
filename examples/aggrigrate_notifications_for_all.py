@@ -31,11 +31,10 @@ def get_notifications(turbot_host, turbot_api_access_key, turbot_api_secret_key,
             'cache-control': "no-cache"
         }
     )
+
     responseObj = json.loads(response.text)
 
-
     for notification in responseObj['items']:
-        print(notification['alarmUrn'])
         notification_list.append(notification['alarmUrn'])
     return notification_list
 
@@ -61,9 +60,10 @@ if __name__ == '__main__':
     top_level = 'urn:turbot'
     notification_list = []
     cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification)
-    #accounts = ['aaz']
+    accounts = ['aaz']
     for account_id in accounts:
         namespace =  cluster_id + ":" +  account_id
         notification_list.append(get_notifications(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, api_version))
 
     #print(sorted(notification_list))
+    print(notification_list)

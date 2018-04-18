@@ -35,7 +35,6 @@ def get_notifications_for_account(turbot_host, turbot_api_access_key, turbot_api
     return notification_list
 
 
-
 def get_guardrails_for_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account):
     """ This returns the tick items notification stream from an account not the guardrail notifications"""
     api_method = "GET"
