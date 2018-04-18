@@ -21,7 +21,7 @@ def get_notifications(turbot_host, turbot_api_access_key, turbot_api_secret_key,
     :return: Returns notification_list of all active notifications
     """
     api_method = "GET"
-    api_url = "/api/%s/resources/%s/controls" % (api_version, namespace)
+    api_url = "/api/%s/resources/%s/controls?filter=state:alarm,error" % (api_version, namespace)
     notification_list = []
     response = requests.request(
         api_method,
@@ -35,7 +35,6 @@ def get_notifications(turbot_host, turbot_api_access_key, turbot_api_secret_key,
     )
 
     responseObj = json.loads(response.text)
-
     for notification in responseObj['items']:
         notification_list.append(notification['alarmUrn'])
     return notification_list
@@ -50,19 +49,18 @@ if __name__ == '__main__':
 
     # Get the access and secret key pairs
     (turbot_api_access_key,turbot_api_secret_key) = turbotutils.get_turbot_access_keys()
-    cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification)
 
     # Get the turbot version
     api_version = turbotutils.get_api_version()
 
     # Get the turbot account numbers
-    accounts = turbotutils.cluster.get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host)
+    cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, api_version)
+
+    accounts = turbotutils.cluster.get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, api_version)
 
     top_level = 'urn:turbot'
     notification_list = []
     notification_count = {}
-    cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification)
-
     for account_id in accounts:
         namespace = cluster_id + ":" + account_id
         for notification in get_notifications(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, api_version):
