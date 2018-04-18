@@ -3,12 +3,12 @@ import json
 import urllib.parse
 
 
-def get_aws_access_key(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id):
+def get_aws_access_key(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id, api_version):
     """ Gets the federated access keys for a specified account
 
     :return: Returns the access key, secret key and session token for an account"""
     api_method = "POST"
-    api_url = "/api/v1/accounts/%s/users/%s/awsCredentials" % (turbot_account, turbot_user_id)
+    api_url = "/api/%s/accounts/%s/users/%s/awsCredentials" % (api_version, turbot_account, turbot_user_id)
     response = requests.request(
         api_method,
         urllib.parse.urljoin(turbot_host, api_url),
@@ -29,13 +29,13 @@ def get_aws_access_key(turbot_api_access_key, turbot_api_secret_key, turbot_host
     return (akey, skey, token)
 
 
-def list_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id):
+def list_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id, api_version):
     """ Sets user access AKIA key pairs for a specified account
 
     NOTE: This requires a Cluster role Turbot/Owner or higher in order to work.
     """
     api_method = "GET"
-    api_url = "/api/v1/accounts/%s/users/%s/awsAccessKeys" % (turbot_account, turbot_user_id)
+    api_url = "/api/%s/accounts/%s/users/%s/awsAccessKeys" % (api_version, turbot_account, turbot_user_id)
     response = requests.request(
         api_method,
         urllib.parse.urljoin(turbot_host, api_url),
@@ -59,13 +59,13 @@ def list_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_h
     return (exists, akey)
 
 
-def delete_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id, akey):
+def delete_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id, akey, api_version):
     """ Sets user access AKIA key pairs for a specified account
 
     NOTE: This requires a Cluster role Turbot/Owner or higher in order to work.
     """
     api_method = "DELETE"
-    api_url = "/api/v1/accounts/%s/users/%s/awsAccessKeys/%s" % (turbot_account, turbot_user_id, akey)
+    api_url = "/api/%s/accounts/%s/users/%s/awsAccessKeys/%s" % (api_version, turbot_account, turbot_user_id, akey)
     response = requests.request(
         api_method,
         urllib.parse.urljoin(turbot_host, api_url),
@@ -78,13 +78,13 @@ def delete_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot
     )
 
 
-def create_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id):
+def create_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, turbot_user_id, api_version):
     """ Sets user access AKIA key pairs for a specified account
 
     NOTE: This requires a Cluster role Turbot/Owner or higher in order to work.
     """
     api_method = "POST"
-    api_url = "/api/v1/accounts/%s/users/%s/awsAccessKeys" % (turbot_account, turbot_user_id)
+    api_url = "/api/%s/accounts/%s/users/%s/awsAccessKeys" % (api_version, turbot_account, turbot_user_id)
     response = requests.request(
         api_method,
         urllib.parse.urljoin(turbot_host, api_url),
@@ -102,13 +102,13 @@ def create_user_access_keys(turbot_api_access_key, turbot_api_secret_key, turbot
     return (akey, skey)
 
 
-def get_account_tags(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account):
+def get_account_tags(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, api_version):
     """ Sets user access AKIA key pairs for a specified account
 
     NOTE: This requires a Cluster role Turbot/Owner or higher in order to work.
     """
     api_method = "GET"
-    api_url = "/api/v1/accounts/%s/" % (turbot_account)
+    api_url = "/api/%s/accounts/%s/" % (api_version, turbot_account)
     response = requests.request(
         api_method,
         urllib.parse.urljoin(turbot_host, api_url),
@@ -129,13 +129,13 @@ def get_account_tags(turbot_api_access_key, turbot_api_secret_key, turbot_host_c
         return False
 
 
-def create_user_ssh_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_user_id):
+def create_user_ssh_keys(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_user_id, api_version):
     """ Sets user access AKIA key pairs for a specified account
 
     NOTE: This requires a Cluster role Turbot/Owner or higher in order to work.
     """
     api_method = "POST"
-    api_url = "/api/v1/users/%s/sshKeys" % (turbot_user_id)
+    api_url = "/api/%s/users/%s/sshKeys" % (api_version, turbot_user_id)
     response = requests.request(
         api_method,
         urllib.parse.urljoin(turbot_host, api_url),
@@ -151,13 +151,13 @@ def create_user_ssh_keys(turbot_api_access_key, turbot_api_secret_key, turbot_ho
     return(responseObj['publicKey'])
 
 
-def add_user_to_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host,userarn, permissions, urn):
+def add_user_to_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host,userarn, permissions, urn, api_version):
     ''' Adds a user to account with Grant'''
     import requests
     import json
     import urllib.parse
     # Set to the required API request type and location
-    api_url = "api/v1/resources/%s/grants/%s" % (urn, permissions)
+    api_url = "api/%s/resources/%s/grants/%s" % (api_version, urn, permissions)
     data = {"identityUrn":  userarn, "activate": True}
 
     response = requests.post(
@@ -171,14 +171,14 @@ def add_user_to_account(turbot_api_access_key, turbot_api_secret_key, turbot_hos
     responseObj = json.loads(response.text)
 
 
-def delete_user_grant(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host,userarn, permissions, urn):
+def delete_user_grant(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host,userarn, permissions, urn, api_version):
     ''' Adds a user to account with Grant'''
     import requests
     import json
     import urllib.parse
     # Set to the required API request type and location
     api_method = "DELETE"
-    api_url = "api/v1/resources/%s/grants/%s/%s" % (urn, permissions,userarn)
+    api_url = "api/%s/resources/%s/grants/%s/%s" % (api_version, urn, permissions,userarn)
 
     response = requests.request(
         api_method,
