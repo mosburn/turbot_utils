@@ -1,4 +1,4 @@
-def get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification):
+def get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, api_version):
     """ Gets the cluster id
     # TODO: put this in cluster.py
     """
@@ -6,7 +6,7 @@ def get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, tu
     import json
     import urllib.parse
     api_method = "GET"
-    api_url = "/api/v1/cluster"
+    api_url = "/api/%s/cluster" % (api_version)
 
     response = requests.request(
         api_method,
