@@ -3,10 +3,10 @@ import json
 import urllib.parse
 
 
-def get_notifications_for_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account):
+def get_notifications_for_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account, api_version):
     """ This returns the tick items notification stream from an account not the guardrail notifications"""
     api_method = "GET"
-    api_url = "/api/v1/resources/%s/notifications?deep=true" % (turbot_account)
+    api_url = "/api/%s/resources/%s/notifications?deep=true" % (api_version, turbot_account)
     response = requests.request(
         api_method,
         urllib.parse.urljoin(turbot_host, api_url),
