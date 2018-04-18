@@ -5,7 +5,9 @@ import turbotutils.account
 import requests
 import json
 import urllib
-import sys
+import operator
+from pprint import pprint
+
 
 def get_notifications(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, api_version):
     """ Gets the turbot notification for account
@@ -55,15 +57,20 @@ if __name__ == '__main__':
 
     # Get the turbot account numbers
     accounts = turbotutils.cluster.get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host)
-    cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key,
-                                                    turbot_host_certificate_verification)
+
     top_level = 'urn:turbot'
     notification_list = []
+    notification_count = {}
     cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification)
-    accounts = ['aaz']
-    for account_id in accounts:
-        namespace =  cluster_id + ":" +  account_id
-        notification_list.append(get_notifications(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, api_version))
 
-    #print(sorted(notification_list))
-    print(notification_list)
+    for account_id in accounts:
+        namespace = cluster_id + ":" + account_id
+        for notification in get_notifications(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, api_version):
+            if notification in notification_count:
+                notification_count[notification] += 1
+            else:
+                notification_count[notification] = 1
+
+    sorted_dict = sorted(notification_count.items(), key=operator.itemgetter(1), reverse=True)
+
+    pprint(sorted_dict)
