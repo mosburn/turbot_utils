@@ -18,9 +18,22 @@ from .cluster import *
 from .network import *
 from .notifications import *
 
-__version__ = '0.0.9'
+__version__ = '0.1.0'
 __url__ = 'https://github.com/mosburn/turbot_utils'
 __author__ = 'Michael Osburn -- mosburn'
+
+
+def get_api_version():
+    """Gets the turbot api version from the config file
+
+   :return: Returns the turbot api_version
+   """
+
+    config = configparser.ConfigParser()
+    config.read(os.path.expanduser('~/.aws/turbothq'))
+    turbot_api_version = config.get('turbot', 'api')
+
+    return turbot_api_version
 
 
 def get_turbot_host():

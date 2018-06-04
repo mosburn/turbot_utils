@@ -1,17 +1,15 @@
 #!/usr/bin/env python
 
-import turbotutils.cluster
 import turbotutils.network
 import requests
 import urllib.parse
 import json
-import sys
 
 
-def get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, cluster_id=False):
+def get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, api_version):
     account_list = []
     api_method = "GET"
-    api_url = "/api/v1/resources/%s/grants" % namespace
+    api_url = "/api/%s/resources/%s/grants" % (api_version, namespace)
 
     response = requests.request(
         api_method,
@@ -49,29 +47,28 @@ if __name__ == '__main__':
 
     # Get the access and secret key pairs
     (turbot_api_access_key,turbot_api_secret_key) = turbotutils.get_turbot_access_keys()
-    cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification)
+
+    # Get the turbot version
+    api_version = turbotutils.get_api_version()
+
+    cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, api_version)
 
     # Get the turbot account numbers
-    accounts = turbotutils.cluster.get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host)
-    cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key,
-                                                    turbot_host_certificate_verification)
+    accounts = turbotutils.cluster.get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, api_version)
+
     top_level = 'urn:turbot'
-    turbot_account_list = get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, top_level)
+    turbot_account_list = get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, top_level, api_version)
 
-    cluster_id = turbotutils.cluster.get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification)
-
-    cluster_account_list = get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, cluster_id)
+    cluster_account_list = get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, cluster_id, api_version)
     for account_id in cluster_account_list:
         if account_id not in turbot_account_list:
             turbot_account_list.append(account_id)
+
     for turbot_account in accounts:
-        account_urn =  cluster_id + ':' + turbot_account
-        account_list = get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, account_urn, cluster_id)
+        namespace = cluster_id + ':' + turbot_account
+        account_list = get_grants(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, namespace, api_version)
         for account_id in account_list:
             if account_id not in turbot_account_list:
                 turbot_account_list.append(account_id)
 
-    turbot_account_list = sorted(set(turbot_account_list))
-
-    for id in turbot_account_list:
-        print(id)
+    #turbot_account_list = sorted(set(turbot_account_list))

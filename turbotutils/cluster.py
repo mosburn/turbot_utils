@@ -1,4 +1,4 @@
-def get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification):
+def get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, api_version):
     """ Gets the cluster id
     # TODO: put this in cluster.py
     """
@@ -6,7 +6,7 @@ def get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, tu
     import json
     import urllib.parse
     api_method = "GET"
-    api_url = "/api/v1/cluster"
+    api_url = "/api/%s/cluster" % (api_version)
 
     response = requests.request(
         api_method,
@@ -26,7 +26,7 @@ def get_cluster_id(turbot_host, turbot_api_access_key, turbot_api_secret_key, tu
     return urn
 
 
-def get_cluster_options(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, turbot_account):
+def get_cluster_options(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, api_version):
     """ Gets the current turbot vpc configuration for an account
     TODO: refactor this
     :return: Returns the current turbot VPC configuration
@@ -35,7 +35,7 @@ def get_cluster_options(turbot_api_access_key, turbot_api_secret_key, turbot_hos
     import json
     import urllib.parse
     api_method = "GET"
-    api_url = "/api/v1/cluster"
+    api_url = "/api/%s/cluster" % (api_version)
     vpc_list = []
 
     response = requests.request(
@@ -57,7 +57,7 @@ def get_cluster_options(turbot_api_access_key, turbot_api_secret_key, turbot_hos
     return vpc_list
 
 
-def get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host):
+def get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, api_version):
     """ Gets the current turbot account names
 
     :return: Returns a dict of turbot account names as turbot_id:AWSaccount
@@ -68,7 +68,7 @@ def get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_
     # Set to the required API request type and location
     accounts = {}
     api_method = "GET"
-    api_url = "/api/v1/accounts"
+    api_url = "/api/%s/accounts" % (api_version)
 
     response = requests.request(
         api_method,
@@ -92,7 +92,7 @@ def get_turbot_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_
     return accounts
 
 
-def get_aws_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host):
+def get_aws_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, api_version):
     import requests
     import json
     import urllib.parse
@@ -103,7 +103,7 @@ def get_aws_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_hos
     # Set to the required API request type and location
     accounts = []
     api_method = "GET"
-    api_url = "/api/v1/accounts"
+    api_url = "/api/%s/accounts" % (api_version)
 
     response = requests.request(
         api_method,
@@ -125,13 +125,13 @@ def get_aws_account_ids(turbot_api_access_key, turbot_api_secret_key, turbot_hos
     return accounts
 
 
-def get_account_titles(turbot_api_access_key, turbot_api_secret_key,turbot_host_certificate_verification, turbot_host):
+def get_account_titles(turbot_api_access_key, turbot_api_secret_key,turbot_host_certificate_verification, turbot_host, api_version):
     import requests
     import json
     import urllib.parse
     accounts = {}
     api_method = "GET"
-    api_url = "/api/v1/accounts"
+    api_url = "/api/%s/accounts" % (api_version)
 
     response = requests.request(
         api_method,
@@ -152,8 +152,9 @@ def get_account_titles(turbot_api_access_key, turbot_api_secret_key,turbot_host_
 
     return accounts
 
+
 def validate_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host, account):
-    ''' Simply validates that we have a valid account id being passed in'''
+    """ Simply validates that we have a valid account id being passed in """
 
     from turbotutils.cluster import get_turbot_account_ids
 

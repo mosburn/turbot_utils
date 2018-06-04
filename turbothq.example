@@ -1,6 +1,7 @@
 [turbot]
-access_key = 
-secret_key = 
-host = turbot.fq.dn
+access_key =
+secret_key =
+host = turbot.install
 verify = True
-turbot_user_id = you@example.com
+turbot_user_id = your_login_id
+api = v3

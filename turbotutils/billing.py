@@ -1,6 +1,6 @@
 
 
-def get_account_bill(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, accountId):
+def get_account_bill(turbot_host, turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, accountId, api_version):
     """ Gets the month to date charges for a given account
 
     """
@@ -8,7 +8,7 @@ def get_account_bill(turbot_host, turbot_api_access_key, turbot_api_secret_key, 
     import json
     import urllib.parse
     api_method = "GET"
-    api_url = "/api/v1/accounts/%s/aws/estimatedCharges" % accountId
+    api_url = "/api/%s/accounts/%s/aws/estimatedCharges" % (api_version, accountId)
 
     response = requests.request(
         api_method,
