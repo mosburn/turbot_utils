@@ -157,7 +157,7 @@ def add_user_to_account(turbot_api_access_key, turbot_api_secret_key, turbot_hos
     import json
     import urllib.parse
     # Set to the required API request type and location
-    api_url = "api/%s/resources/%s/grants/%s" % (api_version, urn, permissions)
+    api_url = "/api/%s/resources/%s/grants/%s" % (api_version, urn, permissions)
     data = {"identityUrn":  userarn, "activate": True}
 
     response = requests.post(
@@ -178,49 +178,7 @@ def delete_user_grant(turbot_api_access_key, turbot_api_secret_key, turbot_host_
     import urllib.parse
     # Set to the required API request type and location
     api_method = "DELETE"
-    api_url = "api/%s/resources/%s/grants/%s/%s" % (api_version, urn, permissions,userarn)
-
-    response = requests.request(
-        api_method,
-        urllib.parse.urljoin(turbot_host, api_url),
-        auth=(turbot_api_access_key, turbot_api_secret_key),
-        verify=turbot_host_certificate_verification,
-        headers={
-            'content-type': "application/json",
-            'cache-control': "no-cache"
-        }
-    )
-
-
-
-def add_user_to_account(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host,userarn, permissions, urn, api_version):
-
-    import requests
-    import json
-    import urllib.parse
-    # Set to the required API request type and location
-    api_url = "api/%s/resources/%s/grants/%s" % (api_version, urn, permissions)
-    data = {"identityUrn":  userarn, "activate": True}
-
-    response = requests.post(
-        json=data,
-        url=urllib.parse.urljoin(turbot_host, api_url),
-        auth=(turbot_api_access_key, turbot_api_secret_key)
-
-    )
-
-    # Convert the response JSON into a Python object and store it if we need it
-    responseObj = json.loads(response.text)
-
-
-def delete_user_grant(turbot_api_access_key, turbot_api_secret_key, turbot_host_certificate_verification, turbot_host,userarn, permissions, urn, api_version):
-    ''' Adds a user to account with Grant'''
-    import requests
-    import json
-    import urllib.parse
-    # Set to the required API request type and location
-    api_method = "DELETE"
-    api_url = "api/%s/resources/%s/grants/%s/%s" % (api_version, urn, permissions,userarn)
+    api_url = "/api/%s/resources/%s/grants/%s/%s" % (api_version, urn, permissions,userarn)
 
     response = requests.request(
         api_method,
