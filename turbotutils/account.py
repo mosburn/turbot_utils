@@ -23,8 +23,8 @@ def get_aws_access_key(turbot_api_access_key, turbot_api_secret_key, turbot_host
     responseObj = json.loads(response.text)
 
     akey = responseObj['accessKeyId']
-    skey = responseObj['secretAccessKey']
-    token = responseObj['sessionToken']
+    skey = responseObj['$secretAccessKey']
+    token = responseObj['$sessionToken']
 
     return (akey, skey, token)
 
